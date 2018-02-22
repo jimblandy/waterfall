@@ -218,8 +218,10 @@ fn find_max(heatmap: &Heatmap) -> f64 {
 fn string_buffer(string: &str, size: f32) -> ImageBuffer<ColorRgb> {
     // load font
     let font_data = include_bytes!("../assets/ubuntumono/UbuntuMono-Regular.ttf");
-    let collection = FontCollection::from_bytes(font_data as &[u8]);
-    let font = collection.into_font().unwrap();
+    let collection = FontCollection::from_bytes(font_data as &[u8])
+        .expect("failed to build FontCollection from UbuntuMono-Regular bits");
+    let font = collection.into_font()
+        .expect("failed to convert FontCollection into a Font");
 
     // size and scaling
     let height: f32 = size;
